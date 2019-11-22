@@ -1,0 +1,10 @@
+# node & npm
+/node_modules
+npm-debug.log
+
+# build
+/lib
+
+# test
+.jest-cache
+test-results

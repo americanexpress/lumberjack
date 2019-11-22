@@ -1,0 +1,10 @@
+# test
+__tests__
+.jest-cache
+test-results
+
+# src
+.babelrc
+.editorconfig
+.eslintrc.json
+.npmignore

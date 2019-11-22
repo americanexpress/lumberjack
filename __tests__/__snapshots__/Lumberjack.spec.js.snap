@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lumberjack constructor afterWrite option throws an error if provided but is not a function 1`] = `"afterWrite must be a function (given \\"boolean\\")"`;
+
+exports[`Lumberjack constructor beforeWrite option throws an error if provided but is not a function 1`] = `"beforeWrite must be a function (given \\"boolean\\")"`;
+
+exports[`Lumberjack constructor formatter option throws an error if not a function 1`] = `"formatter must be a function (given \\"boolean\\")"`;
+
+exports[`Lumberjack constructor stderr option throws if not a stream 1`] = `"Console expects a writable stream instance for stderr"`;
+
+exports[`Lumberjack constructor stdout option throws if not a stream 1`] = `"Console expects a writable stream instance for stdout"`;
