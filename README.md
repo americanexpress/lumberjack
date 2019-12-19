@@ -1,10 +1,9 @@
-<h1>
-  <center>
-    <br />
-    <img src="./lumberjack.png" alt="lumberjack - One App" width="50%" />
-    <br /><br />
-  </center>
+<h1 align="center">
+  <img src='https://github.com/americanexpress/lumberjack/raw/master/lumberjack.png' alt="Lumberjack - One Amex" width='50%'/>
 </h1>
+
+[![npm](https://img.shields.io/npm/v/@americanexpress/lumberjack)](https://www.npmjs.com/package/@americanexpress/lumberjack)
+[![Travis (.org) branch](https://img.shields.io/travis/americanexpress/lumberjack/master)](https://travis-ci.org/americanexpress/lumberjack)
 
 > `lumberjack` is a minimal and configurable [`Console`](https://nodejs.org/api/console.html) with utilities.
 
