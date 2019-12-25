@@ -13,24 +13,25 @@
  */
 
 import util from 'util';
+import { Writable } from 'stream';
 
 import Lumberjack from '../src/Lumberjack';
 
 jest.mock('util', () => ({ format: jest.fn() }));
 
 describe('Lumberjack', () => {
-  function createStream({ write, once, removeListener } = {}) {
-    return {
+  function createStream({ write } = {}) {
+    const stream = new Writable({
       // required by Console
       // https://github.com/nodejs/node/blob/v8.11.3/lib/console.js#L34
       write: write || jest.fn(),
-
-      // used by Console for error handling
-      // https://github.com/nodejs/node/blob/v8.11.3/lib/console.js#L109
-      once: once || jest.fn(),
-      // https://github.com/nodejs/node/blob/v8.11.3/lib/console.js#L119
-      removeListener: removeListener || jest.fn(),
-    };
+    });
+    jest.spyOn(stream, 'write');
+    // https://github.com/nodejs/node/blob/v8.11.3/lib/console.js#L109
+    jest.spyOn(stream, 'once');
+    // https://github.com/nodejs/node/blob/v8.11.3/lib/console.js#L119
+    jest.spyOn(stream, 'removeListener');
+    return stream;
   }
 
   describe('constructor', () => {
@@ -130,7 +131,7 @@ describe('Lumberjack', () => {
       const beforeLogger = new Lumberjack({
         stdout,
         stderr: stderrPush,
-        formatter: v => v,
+        formatter: (v) => v,
         beforeWrite: beforeWritePush,
       });
       beforeLogger.error('text');
@@ -146,7 +147,7 @@ describe('Lumberjack', () => {
       const afterLogger = new Lumberjack({
         stdout,
         stderr: stderrPush,
-        formatter: v => v,
+        formatter: (v) => v,
         afterWrite: afterWritePush,
       });
       afterLogger.error('text');
@@ -163,7 +164,7 @@ describe('Lumberjack', () => {
       const beforeAndAfterLogger = new Lumberjack({
         stdout,
         stderr: stderrPush,
-        formatter: v => v,
+        formatter: (v) => v,
         beforeWrite: beforeWritePush,
         afterWrite: afterWritePush,
       });
@@ -219,7 +220,7 @@ describe('Lumberjack', () => {
       const beforeLogger = new Lumberjack({
         stdout,
         stderr: stderrPush,
-        formatter: v => v,
+        formatter: (v) => v,
         beforeWrite: beforeWritePush,
       });
       beforeLogger.warn('text');
@@ -235,7 +236,7 @@ describe('Lumberjack', () => {
       const afterLogger = new Lumberjack({
         stdout,
         stderr: stderrPush,
-        formatter: v => v,
+        formatter: (v) => v,
         afterWrite: afterWritePush,
       });
       afterLogger.warn('text');
@@ -252,7 +253,7 @@ describe('Lumberjack', () => {
       const beforeAndAfterLogger = new Lumberjack({
         stdout,
         stderr: stderrPush,
-        formatter: v => v,
+        formatter: (v) => v,
         beforeWrite: beforeWritePush,
         afterWrite: afterWritePush,
       });
@@ -300,7 +301,7 @@ describe('Lumberjack', () => {
       const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
       const beforeLogger = new Lumberjack({
         stdout: stdoutPush,
-        formatter: v => v,
+        formatter: (v) => v,
         beforeWrite: beforeWritePush,
       });
       beforeLogger.info('text');
@@ -315,7 +316,7 @@ describe('Lumberjack', () => {
       const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
       const afterLogger = new Lumberjack({
         stdout: stdoutPush,
-        formatter: v => v,
+        formatter: (v) => v,
         afterWrite: afterWritePush,
       });
       afterLogger.info('text');
@@ -331,7 +332,7 @@ describe('Lumberjack', () => {
       const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
       const beforeAndAfterLogger = new Lumberjack({
         stdout: stdoutPush,
-        formatter: v => v,
+        formatter: (v) => v,
         beforeWrite: beforeWritePush,
         afterWrite: afterWritePush,
       });
@@ -349,8 +350,6 @@ describe('Lumberjack', () => {
 
     beforeEach(() => {
       stdout.write.mockClear();
-      stdout.once.mockClear();
-      stdout.removeListener.mockClear();
       formatter.mockClear();
     });
 
@@ -381,7 +380,7 @@ describe('Lumberjack', () => {
       const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
       const beforeLogger = new Lumberjack({
         stdout: stdoutPush,
-        formatter: v => v,
+        formatter: (v) => v,
         beforeWrite: beforeWritePush,
       });
       beforeLogger.log('text');
@@ -396,7 +395,7 @@ describe('Lumberjack', () => {
       const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
       const afterLogger = new Lumberjack({
         stdout: stdoutPush,
-        formatter: v => v,
+        formatter: (v) => v,
         afterWrite: afterWritePush,
       });
       afterLogger.log('text');
@@ -412,7 +411,7 @@ describe('Lumberjack', () => {
       const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
       const beforeAndAfterLogger = new Lumberjack({
         stdout: stdoutPush,
-        formatter: v => v,
+        formatter: (v) => v,
         beforeWrite: beforeWritePush,
         afterWrite: afterWritePush,
       });

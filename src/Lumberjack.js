@@ -15,24 +15,25 @@
 const { Console } = require('console');
 const { format } = require('util');
 
+// eslint-disable-next-line max-params
 function loggerFunctionBuilder(formatter, console, beforeWrite, afterWrite) {
   // so create the method either with or without the calls to before/afterWrite, rather than
   // checking if the methods were provided every console write
-  let writeToConsole = consoleMethod => line => consoleMethod(line);
+  let writeToConsole = (consoleMethod) => (line) => consoleMethod(line);
 
   if (beforeWrite && afterWrite) {
-    writeToConsole = consoleMethod => (line) => {
+    writeToConsole = (consoleMethod) => (line) => {
       beforeWrite();
       consoleMethod(line);
       afterWrite();
     };
   } else if (beforeWrite) {
-    writeToConsole = consoleMethod => (line) => {
+    writeToConsole = (consoleMethod) => (line) => {
       beforeWrite();
       consoleMethod(line);
     };
   } else if (afterWrite) {
-    writeToConsole = consoleMethod => (line) => {
+    writeToConsole = (consoleMethod) => (line) => {
       consoleMethod(line);
       afterWrite();
     };
@@ -69,15 +70,15 @@ export default function Lumberjack(opts = {}) {
   const afterWrite = opts.afterWrite || undefined;
 
   if (typeof formatter !== 'function') {
-    throw new Error(`formatter must be a function (given "${typeof formatter}")`);
+    throw new TypeError(`formatter must be a function (given "${typeof formatter}")`);
   }
 
   if (typeof beforeWrite !== 'function' && typeof beforeWrite !== 'undefined') {
-    throw new Error(`beforeWrite must be a function (given "${typeof beforeWrite}")`);
+    throw new TypeError(`beforeWrite must be a function (given "${typeof beforeWrite}")`);
   }
 
   if (typeof afterWrite !== 'function' && typeof afterWrite !== 'undefined') {
-    throw new Error(`afterWrite must be a function (given "${typeof afterWrite}")`);
+    throw new TypeError(`afterWrite must be a function (given "${typeof afterWrite}")`);
   }
 
   const getLoggerFunction = loggerFunctionBuilder(formatter, console, beforeWrite, afterWrite);

@@ -1,10 +1,13 @@
-# test
+# source files
 __tests__
+# misc
+/.*
+/*.md
+!/README.md
+# config
+/*.config.js
+
+# .gitignore is not used with .npmignore in place
+# testing artifacts
 .jest-cache
 test-results
-
-# src
-.babelrc
-.editorconfig
-.eslintrc.json
-.npmignore

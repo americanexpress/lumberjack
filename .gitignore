@@ -1,6 +1,8 @@
-# node & npm
-/node_modules
-npm-debug.log
+# node
+node_modules
+
+# logs
+*.log
 
 # build
 /lib

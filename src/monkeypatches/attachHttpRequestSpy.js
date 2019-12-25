@@ -19,11 +19,12 @@ import httpSpy from './httpSpy';
 
 export default function attachHttpRequestSpies(requestSpy, socketCloseSpy) {
   if (typeof requestSpy !== 'function') {
-    throw new Error(`requestSpy must be a function (was "${typeof requestSpy}")`);
+    throw new TypeError(`requestSpy must be a function (was "${typeof requestSpy}")`);
   }
 
   if (socketCloseSpy && (typeof socketCloseSpy !== 'function')) {
-    throw new Error(`socketCloseSpy must be function if provided (was "${typeof socketCloseSpy}")`);
+    throw new TypeError(
+      `socketCloseSpy must be function if provided (was "${typeof socketCloseSpy}")`);
   }
 
   attachSpy(http, 'request', httpSpy('http', requestSpy, socketCloseSpy));

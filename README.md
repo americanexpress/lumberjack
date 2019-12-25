@@ -47,7 +47,11 @@ import Lumberjack from '@americanexpress/lumberjack';
 const logger = new Lumberjack({
   formatter: (level, ...args) => `${level}: ${args}`,
   // or
-  formatter: (level, ...messages) => JSON.stringify({ level, time: (new Date()).toISOString(), messages }),
+  formatter: (level, ...messages) => JSON.stringify({
+    level,
+    messages,
+    time: (new Date()).toISOString(),
+  }),
 });
 
 logger.error(new Error('sample error'));
@@ -80,7 +84,7 @@ Creating a new console/Lumberjack is _similar_ to creating a [new nodejs Console
 
 ``` javascript
 const logger = new Lumberjack({
-  //options are added here
+  // options are added here
 });
 ```
 

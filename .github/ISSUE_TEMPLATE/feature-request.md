@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Create a feature request for amex-lumberjack
+about: Create a feature request for lumberjack
 ---
 
 # 💡 Feature request

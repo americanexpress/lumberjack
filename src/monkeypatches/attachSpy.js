@@ -16,11 +16,11 @@ export default function attachSpy(obj, methodName, spy) {
   const origMethod = obj[methodName];
 
   if (typeof origMethod !== 'function') {
-    throw new Error(`${methodName} is not a function`);
+    throw new TypeError(`${methodName} is not a function`);
   }
 
   if (typeof spy !== 'function') {
-    throw new Error(`spy must be a function (was "${typeof spy}")`);
+    throw new TypeError(`spy must be a function (was "${typeof spy}")`);
   }
 
   // we're monkeypatching, we need to reassign a property of the obj argument

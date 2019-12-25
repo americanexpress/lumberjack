@@ -12,7 +12,7 @@
  * under the License.
  */
 
-import Lumberjack, { monkeypatches } from '../src/index';
+import Lumberjack, { monkeypatches } from '../src';
 
 import mockedLumberjack from '../src/Lumberjack';
 import mockedMonkeypatchs from '../src/monkeypatches';

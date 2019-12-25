@@ -16,7 +16,7 @@ import Lumberjack from '../Lumberjack';
 
 export default function replaceGlobalConsole(logger) {
   if (!(logger instanceof Lumberjack)) {
-    throw new Error('logger must be an instance of Lumberjack');
+    throw new TypeError('logger must be an instance of Lumberjack');
   }
 
   // global.console = logger;
