@@ -23,7 +23,7 @@ describe('Lumberjack', () => {
   function createStream({ write } = {}) {
     const stream = new Writable({
       // required by Console
-      // https://github.com/nodejs/node/blob/v8.11.3/lib/console.js#L34
+      // https://github.com/nodejs/node/blob/v12.0.0/lib/internal/console/constructor.js#L83
       write: write || jest.fn(),
     });
     jest.spyOn(stream, 'write');
