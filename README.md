@@ -44,19 +44,25 @@ Read more about this in the [Lumberjack](#Lumberjack) API section.
 ```javascript
 import Lumberjack from '@americanexpress/lumberjack';
 
-let formatter = null;
-// how you format your message can look like:
-formatter = (level, ...args) => `${level}: ${args}`;
-// or can be formatted as JSON:
-formatter = (level, ...messages) => JSON.stringify({
-  level,
-  messages,
-  time: (new Date()).toISOString(),
-}, null, 2);
+function createLogger(simple = true) {
+  return new Lumberjack({
+    formatter: simple
+      // your formatter function can be as simple as:
+      ? (level, ...args) => `${level}: ${args}`
+      // or can be more complex, like stringifying as JSON:
+      : (level, ...messages) => JSON.stringify(
+        {
+          level,
+          messages,
+          time: (new Date()).toISOString(),
+        },
+        null,
+        2
+      ),
+  });
+}
 
-const logger = new Lumberjack({
-  formatter,
-});
+const logger = createLogger();
 
 logger.error(new Error('sample error'));
 logger.warn("you're gonna have a bad time");
