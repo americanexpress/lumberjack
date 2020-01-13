@@ -15,8 +15,9 @@
 const { Console } = require('console');
 const { format } = require('util');
 
-// eslint-disable-next-line max-params
-function loggerFunctionBuilder(formatter, console, beforeWrite, afterWrite) {
+function loggerFunctionBuilder({
+  formatter, console, beforeWrite, afterWrite,
+}) {
   // so create the method either with or without the calls to before/afterWrite, rather than
   // checking if the methods were provided every console write
   let writeToConsole = (consoleMethod) => (line) => consoleMethod(line);
@@ -81,7 +82,9 @@ export default function Lumberjack(opts = {}) {
     throw new TypeError(`afterWrite must be a function (given "${typeof afterWrite}")`);
   }
 
-  const getLoggerFunction = loggerFunctionBuilder(formatter, console, beforeWrite, afterWrite);
+  const getLoggerFunction = loggerFunctionBuilder({
+    formatter, console, beforeWrite, afterWrite,
+  });
   this.error = getLoggerFunction('error');
   this.warn = getLoggerFunction('warn');
   this.info = getLoggerFunction('info');
