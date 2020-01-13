@@ -27,9 +27,9 @@ describe('Lumberjack', () => {
       write: write || jest.fn(),
     });
     jest.spyOn(stream, 'write');
-    // https://github.com/nodejs/node/blob/v8.11.3/lib/console.js#L109
+    // https://github.com/nodejs/node/blob/v12.0.0/lib/internal/console/constructor.js#L236
     jest.spyOn(stream, 'once');
-    // https://github.com/nodejs/node/blob/v8.11.3/lib/console.js#L119
+    // https://github.com/nodejs/node/blob/v12.0.0/lib/internal/console/constructor.js#L246
     jest.spyOn(stream, 'removeListener');
     return stream;
   }
