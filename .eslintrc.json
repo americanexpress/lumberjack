@@ -1,1 +1,9 @@
-{ "extends": "amex" }
+{
+  "extends": ["amex"],
+  "overrides": [
+    {
+      "files": ["**/__tests__/**", "**/__mocks__/**", "*.spec.js"],
+      "extends": ["amex/test"]
+    }
+  ]
+}

@@ -30,8 +30,8 @@ function buildUrlObject(options, defaultProtocol) {
     search: parsedPath.search,
   };
   if (
-    (protocol === 'http:' && urlObject.port === 80) ||
-    (protocol === 'https:' && urlObject.port === 443)
+    (protocol === 'http:' && urlObject.port === 80)
+    || (protocol === 'https:' && urlObject.port === 443)
   ) {
     delete urlObject.port;
   }

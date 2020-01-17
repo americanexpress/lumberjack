@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a bug report for amex-lumberjack
+about: Create a bug report for lumberjack
 ---
 
 # 🐞 Bug Report
@@ -30,7 +30,7 @@ If applicable, add screenshots to help explain your problem.
 
 - OS: [e.g. macOS, Windows]
 - Browser (if applies) [e.g. chrome, safari]
-- Version of amex-lumberjack: [e.g. 5.0.0]
+- Version of lumberjack: [e.g. 5.0.0]
 - Node version:[e.g 10.15.1]
 
 ## Additional context

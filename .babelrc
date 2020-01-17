@@ -1,9 +1,5 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "node": "4.4.1"
-      }
-    }]
+    "amex"
   ]
 }

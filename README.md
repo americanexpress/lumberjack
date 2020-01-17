@@ -44,11 +44,25 @@ Read more about this in the [Lumberjack](#Lumberjack) API section.
 ```javascript
 import Lumberjack from '@americanexpress/lumberjack';
 
-const logger = new Lumberjack({
-  formatter: (level, ...args) => `${level}: ${args}`,
-  // or
-  formatter: (level, ...messages) => JSON.stringify({ level, time: (new Date()).toISOString(), messages }),
-});
+function createLogger(simple = true) {
+  return new Lumberjack({
+    formatter: simple
+      // your formatter function can be as simple as:
+      ? (level, ...args) => `${level}: ${args}`
+      // or can be more complex, like stringifying as JSON:
+      : (level, ...messages) => JSON.stringify(
+        {
+          level,
+          messages,
+          time: (new Date()).toISOString(),
+        },
+        null,
+        2
+      ),
+  });
+}
+
+const logger = createLogger();
 
 logger.error(new Error('sample error'));
 logger.warn("you're gonna have a bad time");
@@ -80,7 +94,7 @@ Creating a new console/Lumberjack is _similar_ to creating a [new nodejs Console
 
 ``` javascript
 const logger = new Lumberjack({
-  //options are added here
+  // options are added here
 });
 ```
 
