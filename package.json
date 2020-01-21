@@ -34,8 +34,10 @@
     "test:lint": "eslint --ext .js,.md,.snap .",
     "test:unit": "jest",
     "test": "npm run test:unit && npm run test:lint",
+    "test:lockfile": "lockfile-lint -p package-lock.json -t npm -a npm -o https: -c -i",
     "build": "babel src -d lib",
-    "prepack": "npm run test && npm run build"
+    "prepack": "npm run test && npm run build",
+    "posttest": "npm run test:lockfile"
   },
   "dependencies": {
     "on-finished": "^2.3.0"
@@ -57,6 +59,7 @@
     "eslint-config-amex": "^11.1.0",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
+    "lockfile-lint": "^3.0.8",
     "semantic-release": "^15.14.0"
   },
   "release": {
