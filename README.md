@@ -17,7 +17,6 @@ Want to get paid for your contributions to `lumberjack`?
 * [Features](#-features)
 * [Usage](#-usage)
 * [API](#-api)
-* [Available Scripts](#-available-scripts)
 * [Contributing](#-contributing)
 
 ## ✨ Features
@@ -183,16 +182,6 @@ The same thing as [attachHttpRequestSpy](#monkeypatches.attachHttpRequestSpy) bu
 Note that for nodejs versions before 6.0.0 and earlier `https.request` called `http.request` so adding spys for both
 `http` and `https` will result in both spies being called.
 
-## 📜 Available Scripts
-
-**`npm run build`**
-
-Builds the module into the `build` folder.
-
-**`npm test`**
-
-Runs `eslint` **and** unit tests on the current branch.
-
 ## 🏆 Contributing
 
 We welcome Your interest in the American Express Open Source Community on Github.
@@ -203,7 +192,7 @@ and to recipients of software distributed by American Express, You reserve all
 right, title, and interest, if any, in and to Your Contributions. Please [fill
 out the Agreement](https://cla-assistant.io/americanexpress/lumberjack).
 
-Please feel free to open pull requests and see [CONTRIBUTING.md](./CONTRIBUTING.md) for commit formatting details.
+Please feel free to open pull requests and see [CONTRIBUTING.md](./CONTRIBUTING.md) to learn how to get started contributing.
 
 ## 🗝️ License
 
