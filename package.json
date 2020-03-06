@@ -33,7 +33,8 @@
   "scripts": {
     "test:lint": "eslint --ext .js,.md,.snap .",
     "test:unit": "jest",
-    "test": "npm run test:unit && npm run test:lint",
+    "test": "npm run test:unit && npm run test:lint && npm run test:git-history",
+    "test:git-history": "commitlint --from origin/master --to HEAD",
     "test:lockfile": "lockfile-lint -p package-lock.json -t npm -a npm -o https: -c -i",
     "build": "babel src -d lib",
     "prepack": "npm run test && npm run build",
