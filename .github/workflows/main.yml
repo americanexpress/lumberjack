@@ -1,0 +1,24 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+  pull_request_review_comment:
+    types:
+      - created
+      - deleted
+      - edited
+  issue_comment:
+    types:
+      - created
+      - deleted
+      - edited
+jobs:
+  task_checker:
+    runs-on: ubuntu-latest
+    name: Check for tasks in pull requests
+    steps:
+    - name: Pull request task checker
+      uses: americanexpress/actions/task-status-pr-checker
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
