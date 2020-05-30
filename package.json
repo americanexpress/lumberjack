@@ -44,8 +44,8 @@
     "on-finished": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.1",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "@semantic-release/changelog": "^3.0.5",
@@ -53,9 +53,9 @@
     "@semantic-release/git": "^7.0.18",
     "@semantic-release/npm": "^5.3.4",
     "@semantic-release/release-notes-generator": "^7.3.5",
-    "amex-jest-preset": "^5.0.0",
+    "amex-jest-preset": "^6.1.0",
     "babel-jest": "^24.9.0",
-    "babel-preset-amex": "^3.3.0",
+    "babel-preset-amex": "^3.4.0",
     "eslint": "^6.8.0",
     "eslint-config-amex": "^11.1.0",
     "husky": "^3.0.9",
