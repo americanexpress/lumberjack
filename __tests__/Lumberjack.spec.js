@@ -421,4 +421,161 @@ describe('Lumberjack', () => {
       expect(order).toEqual(['beforeWrite', 'stdout', 'afterWrite']);
     });
   });
+
+  describe('table', () => {
+    const stdout = createStream();
+    const formatter = jest.fn(() => 'table string');
+    const logger = new Lumberjack({ stdout, formatter });
+
+    beforeEach(() => {
+      stdout.write.mockClear();
+      formatter.mockClear();
+    });
+
+    it('is formatted by the formatter option', () => {
+      const a = 1;
+      const b = 'two';
+      const c = function three() {};
+      logger.table(a, b, c);
+      expect(formatter).toHaveBeenCalledTimes(1);
+      expect(formatter.mock.calls[0]).toEqual(['table', a, b, c]);
+    });
+
+    it('is written to the stdout stream option', () => {
+      logger.table();
+      expect(stdout.write).toHaveBeenCalledTimes(1);
+      expect(stdout.write.mock.calls[0][0]).toEqual('table string\n');
+    });
+
+    it('skips writing to the stdout stream if formatter returned null', () => {
+      const skipperLogger = new Lumberjack({ stdout, formatter: () => null });
+      skipperLogger.error('skipping');
+      expect(stdout.write).not.toHaveBeenCalled();
+    });
+
+    it('calls beforeWrite before writing to stderr', () => {
+      const order = [];
+      const beforeWritePush = jest.fn(() => { order.push('beforeWrite'); });
+      const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
+      const beforeLogger = new Lumberjack({
+        stdout: stdoutPush,
+        formatter: (v) => v,
+        beforeWrite: beforeWritePush,
+      });
+      beforeLogger.table('text');
+      expect(beforeWritePush).toHaveBeenCalledTimes(1);
+      expect(stdoutPush.write).toHaveBeenCalled();
+      expect(order).toEqual(['beforeWrite', 'stdout']);
+    });
+
+    it('calls afterWrite after writing to stdout', () => {
+      const order = [];
+      const afterWritePush = jest.fn(() => { order.push('afterWrite'); });
+      const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
+      const afterLogger = new Lumberjack({
+        stdout: stdoutPush,
+        formatter: (v) => v,
+        afterWrite: afterWritePush,
+      });
+      afterLogger.table('text');
+      expect(afterWritePush).toHaveBeenCalledTimes(1);
+      expect(stdoutPush.write).toHaveBeenCalled();
+      expect(order).toEqual(['stdout', 'afterWrite']);
+    });
+
+    it('calls both beforeWrite and afterWrite', () => {
+      const order = [];
+      const beforeWritePush = jest.fn(() => { order.push('beforeWrite'); });
+      const afterWritePush = jest.fn(() => { order.push('afterWrite'); });
+      const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
+      const beforeAndAfterLogger = new Lumberjack({
+        stdout: stdoutPush,
+        formatter: (v) => v,
+        beforeWrite: beforeWritePush,
+        afterWrite: afterWritePush,
+      });
+      beforeAndAfterLogger.table('text');
+      expect(afterWritePush).toHaveBeenCalledTimes(1);
+      expect(stdoutPush.write).toHaveBeenCalled();
+      expect(order).toEqual(['beforeWrite', 'stdout', 'afterWrite']);
+    });
+  });
+
+  describe('dir', () => {
+    const stdout = createStream();
+    const formatter = jest.fn(() => 'dir string');
+    const logger = new Lumberjack({ stdout, formatter });
+
+    beforeEach(() => {
+      stdout.write.mockClear();
+      formatter.mockClear();
+    });
+
+    it('is formatted by the formatter option', () => {
+      const a = 1;
+      const b = 'two';
+      const c = function three() {};
+      logger.dir(a, b, c);
+      expect(formatter).toHaveBeenCalledTimes(1);
+      expect(formatter.mock.calls[0]).toEqual(['dir', a, b, c]);
+    });
+
+    it('is written to the stdout stream option', () => {
+      logger.dir();
+      expect(stdout.write).toHaveBeenCalledTimes(1);
+    });
+
+    it('skips writing to the stdout stream if formatter returned null', () => {
+      const skipperLogger = new Lumberjack({ stdout, formatter: () => null });
+      skipperLogger.error('skipping');
+      expect(stdout.write).not.toHaveBeenCalled();
+    });
+
+    it('calls beforeWrite before writing to stderr', () => {
+      const order = [];
+      const beforeWritePush = jest.fn(() => { order.push('beforeWrite'); });
+      const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
+      const beforeLogger = new Lumberjack({
+        stdout: stdoutPush,
+        formatter: (v) => v,
+        beforeWrite: beforeWritePush,
+      });
+      beforeLogger.dir('text');
+      expect(beforeWritePush).toHaveBeenCalledTimes(1);
+      expect(stdoutPush.write).toHaveBeenCalled();
+      expect(order).toEqual(['beforeWrite', 'stdout']);
+    });
+
+    it('calls afterWrite after writing to stdout', () => {
+      const order = [];
+      const afterWritePush = jest.fn(() => { order.push('afterWrite'); });
+      const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
+      const afterLogger = new Lumberjack({
+        stdout: stdoutPush,
+        formatter: (v) => v,
+        afterWrite: afterWritePush,
+      });
+      afterLogger.dir('text');
+      expect(afterWritePush).toHaveBeenCalledTimes(1);
+      expect(stdoutPush.write).toHaveBeenCalled();
+      expect(order).toEqual(['stdout', 'afterWrite']);
+    });
+
+    it('calls both beforeWrite and afterWrite', () => {
+      const order = [];
+      const beforeWritePush = jest.fn(() => { order.push('beforeWrite'); });
+      const afterWritePush = jest.fn(() => { order.push('afterWrite'); });
+      const stdoutPush = createStream({ write: jest.fn(() => { order.push('stdout'); }) });
+      const beforeAndAfterLogger = new Lumberjack({
+        stdout: stdoutPush,
+        formatter: (v) => v,
+        beforeWrite: beforeWritePush,
+        afterWrite: afterWritePush,
+      });
+      beforeAndAfterLogger.dir('text');
+      expect(afterWritePush).toHaveBeenCalledTimes(1);
+      expect(stdoutPush.write).toHaveBeenCalled();
+      expect(order).toEqual(['beforeWrite', 'stdout', 'afterWrite']);
+    });
+  });
 });
