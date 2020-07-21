@@ -89,6 +89,8 @@ export default function Lumberjack(opts = {}) {
   this.warn = getLoggerFunction('warn');
   this.info = getLoggerFunction('info');
   this.log = getLoggerFunction('log');
+  this.dir = getLoggerFunction('dir')
+  this.table = getLoggerFunction('table')
 
   return this;
 }
