@@ -53,7 +53,7 @@ function createLogger(simple = true) {
         {
           level,
           messages,
-          time: (new Date()).toISOString(),
+          time: new Date().toISOString(),
         },
         null,
         2
@@ -67,6 +67,8 @@ logger.error(new Error('sample error'));
 logger.warn("you're gonna have a bad time");
 logger.info('%d', 42);
 logger.log({ its: 'complicated' });
+logger.dir(document.location); // lists properties of an object
+logger.table(['apples', 'oranges', 'bananas']); // expects array
 ```
 
 #### How to use monkeypatches
