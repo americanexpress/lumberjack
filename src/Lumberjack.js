@@ -20,25 +20,11 @@ function loggerFunctionBuilder({
 }) {
   // so create the method either with or without the calls to before/afterWrite, rather than
   // checking if the methods were provided every console write
-  let writeToConsole = (consoleMethod) => (line) => consoleMethod(line);
-
-  if (beforeWrite && afterWrite) {
-    writeToConsole = (consoleMethod) => (line) => {
-      beforeWrite();
-      consoleMethod(line);
-      afterWrite();
-    };
-  } else if (beforeWrite) {
-    writeToConsole = (consoleMethod) => (line) => {
-      beforeWrite();
-      consoleMethod(line);
-    };
-  } else if (afterWrite) {
-    writeToConsole = (consoleMethod) => (line) => {
-      consoleMethod(line);
-      afterWrite();
-    };
-  }
+  const writeToConsole = (consoleMethod) => (line) => {
+    if (beforeWrite) beforeWrite();
+    consoleMethod(line);
+    if (afterWrite) afterWrite();
+  };
 
   return (level) => {
     const writeToConsoleMethod = writeToConsole(console[level]);
@@ -89,6 +75,8 @@ export default function Lumberjack(opts = {}) {
   this.warn = getLoggerFunction('warn');
   this.info = getLoggerFunction('info');
   this.log = getLoggerFunction('log');
+  this.table = getLoggerFunction('table');
+  this.dir = getLoggerFunction('dir');
 
   return this;
 }
