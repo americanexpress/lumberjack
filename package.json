@@ -31,14 +31,14 @@
   "main": "lib/index.js",
   "module": "src/index.js",
   "scripts": {
-    "test:lint": "eslint --ext .js,.md,.snap .",
-    "test:unit": "jest",
-    "test": "npm run test:unit && npm run test:lint && npm run test:git-history",
-    "test:git-history": "commitlint --from origin/master --to HEAD",
-    "test:lockfile": "lockfile-lint -p package-lock.json -t npm -a npm -o https: -c -i",
     "build": "babel src -d lib",
+    "test": "npm run test:unit && npm run test:lint",
+    "test:git-history": "commitlint --from origin/main --to HEAD",
+    "test:lint": "eslint --ext .js,.md,.snap .",
+    "test:lockfile": "lockfile-lint -p package-lock.json -t npm -a npm -o https: -c -i",
+    "test:unit": "jest",
     "prepack": "npm run test && npm run build",
-    "posttest": "npm run test:lockfile"
+    "posttest": "npm run test:lockfile && npm run test:git-history"
   },
   "dependencies": {
     "on-finished": "^2.3.0"
@@ -64,6 +64,20 @@
     "semantic-release": "^15.14.0"
   },
   "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      "next",
+      "next-major",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
@@ -71,8 +85,7 @@
       "@semantic-release/npm",
       "@semantic-release/git",
       "@semantic-release/github"
-    ],
-    "branch": "master"
+    ]
   },
   "husky": {
     "hooks": {
