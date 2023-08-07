@@ -34,7 +34,7 @@ describe('attachHttpRequestSpy', () => {
   });
 
   it('does not throw if socketCloseSpy is not provided', () => {
-    expect(() => attachHttpRequestSpy(() => {})).not.toThrowError();
+    expect(() => attachHttpRequestSpy(() => {})).not.toThrow();
   });
 
   it('throws if socketCloseSpy is provided but is not a function', () => {
