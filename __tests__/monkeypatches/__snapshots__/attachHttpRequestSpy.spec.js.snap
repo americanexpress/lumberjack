@@ -68,6 +68,6 @@ Url {
 }
 `;
 
-exports[`attachHttpRequestSpy throws if requestSpy is not a function 1`] = `"requestSpy must be a function (was \\"undefined\\")"`;
+exports[`attachHttpRequestSpy throws if requestSpy is not a function 1`] = `"requestSpy must be a function (was "undefined")"`;
 
-exports[`attachHttpRequestSpy throws if socketCloseSpy is provided but is not a function 1`] = `"socketCloseSpy must be function if provided (was \\"string\\")"`;
+exports[`attachHttpRequestSpy throws if socketCloseSpy is provided but is not a function 1`] = `"socketCloseSpy must be function if provided (was "string")"`;
