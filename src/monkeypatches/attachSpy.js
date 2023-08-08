@@ -24,7 +24,8 @@ export default function attachSpy(obj, methodName, spy) {
   }
 
   // we're monkeypatching, we need to reassign a property of the obj argument
-  obj[methodName] = function monkeypatchedMethod(...args) { // eslint-disable-line no-param-reassign
+  // eslint-disable-next-line no-param-reassign -- see above comment
+  obj[methodName] = function monkeypatchedMethod(...args) {
     let returnValue;
     let originalCalled = false;
     const callOriginal = () => {
