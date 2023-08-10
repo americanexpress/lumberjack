@@ -19,5 +19,6 @@ module.exports = {
   rules: {
     'scope-case': [2, 'always', ['pascal-case', 'camel-case', 'kebab-case']],
     'body-max-line-length': [0],
+    'footer-max-line-length': [0],
   },
 };
