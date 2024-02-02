@@ -1,3 +1,5 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`replaceGlobalConsole > throws when not given a Lumberjack 1`] = `[TypeError: logger must be an instance of Lumberjack]`;
 
 exports[`replaceGlobalConsole throws when not given a Lumberjack 1`] = `"logger must be an instance of Lumberjack"`;

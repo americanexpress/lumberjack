@@ -11,12 +11,13 @@
  * or implied. See the License for the specific language governing permissions and limitations
  * under the License.
  */
+import {describe, expect, it, vi } from 'vitest';
 
 import replaceGlobalConsole from '../../src/monkeypatches/replaceGlobalConsole';
 
 import Lumberjack from '../../src/Lumberjack';
 
-jest.mock('../../src/Lumberjack');
+vi.mock('../../src/Lumberjack');
 
 describe('replaceGlobalConsole', () => {
   const origConsole = global.console;

@@ -12,13 +12,13 @@
  * under the License.
  */
 
+import { describe, expect, it, vi } from 'vitest';
 import Lumberjack, { monkeypatches } from '../src';
-
 import mockedLumberjack from '../src/Lumberjack';
 import mockedMonkeypatchs from '../src/monkeypatches';
 
-jest.mock('../src/Lumberjack');
-jest.mock('../src/monkeypatches');
+vi.mock('../src/Lumberjack');
+vi.mock('../src/monkeypatches');
 
 describe('main', () => {
   it('has default export Lumberjack', () => {
