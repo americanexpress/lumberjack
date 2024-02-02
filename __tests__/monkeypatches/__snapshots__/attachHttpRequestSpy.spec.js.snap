@@ -1,4 +1,76 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`attachHttpRequestSpy > requestSpy > is called with object options 1`] = `
+Url {
+  "auth": "user:password",
+  "hash": "#so-blue",
+  "host": "example.tld:8080",
+  "hostname": "example.tld",
+  "href": "http://user:password@example.tld:8080/somewhere?over=rainbow#so-blue",
+  "path": "/somewhere?over=rainbow",
+  "pathname": "/somewhere",
+  "port": "8080",
+  "protocol": "http:",
+  "query": "over=rainbow",
+  "search": "?over=rainbow",
+  "slashes": true,
+}
+`;
+
+exports[`attachHttpRequestSpy > requestSpy > is called with parsed options 1`] = `
+Url {
+  "auth": "user:password",
+  "hash": "#so-blue",
+  "host": "example.tld:8080",
+  "hostname": "example.tld",
+  "href": "http://user:password@example.tld:8080/somewhere?over=rainbow#so-blue",
+  "path": "/somewhere?over=rainbow",
+  "pathname": "/somewhere",
+  "port": "8080",
+  "protocol": "http:",
+  "query": "over=rainbow",
+  "search": "?over=rainbow",
+  "slashes": true,
+}
+`;
+
+exports[`attachHttpRequestSpy > requestSpy > is called with sparse object options 1`] = `
+Url {
+  "auth": null,
+  "hash": null,
+  "host": "localhost",
+  "hostname": "localhost",
+  "href": "http://localhost/",
+  "path": "/",
+  "pathname": "/",
+  "port": null,
+  "protocol": "http:",
+  "query": null,
+  "search": null,
+  "slashes": true,
+}
+`;
+
+exports[`attachHttpRequestSpy > socketCloseSpy > is called when the request socket closes 1`] = `
+Url {
+  "auth": null,
+  "hash": null,
+  "host": "example.tld",
+  "hostname": "example.tld",
+  "href": "http://example.tld/",
+  "path": "/",
+  "pathname": "/",
+  "port": null,
+  "protocol": "http:",
+  "query": null,
+  "search": null,
+  "slashes": true,
+}
+`;
+
+exports[`attachHttpRequestSpy > throws if requestSpy is not a function 1`] = `[TypeError: requestSpy must be a function (was "undefined")]`;
+
+exports[`attachHttpRequestSpy > throws if socketCloseSpy is provided but is not a function 1`] = `[TypeError: socketCloseSpy must be function if provided (was "string")]`;
 
 exports[`attachHttpRequestSpy requestSpy is called with object options 1`] = `
 Url {

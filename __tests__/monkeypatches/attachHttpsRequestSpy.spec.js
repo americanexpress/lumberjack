@@ -15,14 +15,22 @@
 import https from 'https';
 
 import onFinished from 'on-finished';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import attachHttpsRequestSpy from '../../src/monkeypatches/attachHttpsRequestSpy';
 
 import attachSpy from '../../src/monkeypatches/attachSpy';
 
-jest.mock('https', () => ({ request: jest.fn() }));
-jest.mock('on-finished');
-jest.mock('../../src/monkeypatches/attachSpy');
+vi.mock('https', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    // your mocked methods
+    request: vi.fn(),
+  };
+});
+vi.mock('on-finished');
+vi.mock('../../src/monkeypatches/attachSpy');
 
 describe('attachHttpsRequestSpy', () => {
   beforeEach(() => {
@@ -34,15 +42,15 @@ describe('attachHttpsRequestSpy', () => {
   });
 
   it('does not throw if socketCloseSpy is not provided', () => {
-    expect(() => attachHttpsRequestSpy(() => {})).not.toThrow();
+    expect(() => attachHttpsRequestSpy(() => { })).not.toThrow();
   });
 
   it('throws if socketCloseSpy is provided but is not a function', () => {
-    expect(() => attachHttpsRequestSpy(() => {}, 'apples')).toThrowErrorMatchingSnapshot();
+    expect(() => attachHttpsRequestSpy(() => { }, 'apples')).toThrowErrorMatchingSnapshot();
   });
 
   it('attaches the spy', () => {
-    attachHttpsRequestSpy(jest.fn());
+    attachHttpsRequestSpy(vi.fn());
     expect(attachSpy).toHaveBeenCalledTimes(1);
     expect(attachSpy.mock.calls[0][0]).toBe(https);
     expect(attachSpy.mock.calls[0][1]).toBe('request');
@@ -51,22 +59,22 @@ describe('attachHttpsRequestSpy', () => {
 
   describe('requestSpy', () => {
     it('is called with clientRequest', () => {
-      const requestSpy = jest.fn();
+      const requestSpy = vi.fn();
       attachHttpsRequestSpy(requestSpy);
       expect(attachSpy).toHaveBeenCalledTimes(1);
       const spy = attachSpy.mock.calls[0][2];
-      const callOriginal = jest.fn(() => 'client request object');
+      const callOriginal = vi.fn(() => 'client request object');
       spy(['https://example.tld'], callOriginal);
       expect(requestSpy).toHaveBeenCalledTimes(1);
       expect(requestSpy.mock.calls[0][0]).toBe('client request object');
     });
 
     it('is called with object options', () => {
-      const requestSpy = jest.fn();
+      const requestSpy = vi.fn();
       attachHttpsRequestSpy(requestSpy);
       expect(attachSpy).toHaveBeenCalledTimes(1);
       const spy = attachSpy.mock.calls[0][2];
-      const callOriginal = jest.fn(() => 'client request object');
+      const callOriginal = vi.fn(() => 'client request object');
       spy([{
         protocol: 'https',
         hostname: 'example.tld',
@@ -80,22 +88,22 @@ describe('attachHttpsRequestSpy', () => {
     });
 
     it('is called with sparse object options', () => {
-      const requestSpy = jest.fn();
+      const requestSpy = vi.fn();
       attachHttpsRequestSpy(requestSpy);
       expect(attachSpy).toHaveBeenCalledTimes(1);
       const spy = attachSpy.mock.calls[0][2];
-      const callOriginal = jest.fn(() => 'client request object');
+      const callOriginal = vi.fn(() => 'client request object');
       spy([{ method: 'GET' }], callOriginal);
       expect(requestSpy).toHaveBeenCalledTimes(1);
       expect(requestSpy.mock.calls[0][1]).toMatchSnapshot();
     });
 
     it('is called with parsed options', () => {
-      const requestSpy = jest.fn();
+      const requestSpy = vi.fn();
       attachHttpsRequestSpy(requestSpy);
       expect(attachSpy).toHaveBeenCalledTimes(1);
       const spy = attachSpy.mock.calls[0][2];
-      const callOriginal = jest.fn(() => 'client request object');
+      const callOriginal = vi.fn(() => 'client request object');
       spy(['https://user:password@example.tld:8080/somewhere?over=rainbow#so-blue'], callOriginal);
       expect(requestSpy).toHaveBeenCalledTimes(1);
       expect(requestSpy.mock.calls[0][1]).toMatchSnapshot();
@@ -105,8 +113,8 @@ describe('attachHttpsRequestSpy', () => {
   describe('socketCloseSpy', () => {
     it('is called when the request socket closes', () => {
       onFinished.mockClear();
-      const socketCloseSpy = jest.fn();
-      attachHttpsRequestSpy(jest.fn(), socketCloseSpy);
+      const socketCloseSpy = vi.fn();
+      attachHttpsRequestSpy(vi.fn(), socketCloseSpy);
       expect(attachSpy).toHaveBeenCalledTimes(1);
       const spy = attachSpy.mock.calls[0][2];
       const clientRequest = {};

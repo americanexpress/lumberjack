@@ -12,17 +12,19 @@
  * under the License.
  */
 
+
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import attachSpy from '../../src/monkeypatches/attachSpy';
 
 describe('attachSpy', () => {
   it('throws if the method name is not a function on the object', () => {
-    expect(() => attachSpy({}, 'method', () => {})).toThrowErrorMatchingSnapshot();
+    expect(() => attachSpy({}, 'method', () => { })).toThrowErrorMatchingSnapshot();
   });
   it('throws if the spy is not a function', () => {
-    expect(() => attachSpy({ method: () => {} }, 'method', 'hello')).toThrowErrorMatchingSnapshot();
+    expect(() => attachSpy({ method: () => { } }, 'method', 'hello')).toThrowErrorMatchingSnapshot();
   });
   describe('monkeypatched method', () => {
-    const originalMethod = jest.fn(() => 'some return value');
+    const originalMethod = vi.fn(() => 'some return value');
     const obj = {};
 
     beforeEach(() => {
@@ -31,7 +33,7 @@ describe('attachSpy', () => {
     });
 
     it('invokes the spy', () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       attachSpy(obj, 'method', spy);
       expect(spy).not.toHaveBeenCalled();
       obj.method();
@@ -39,7 +41,7 @@ describe('attachSpy', () => {
     });
 
     it('invokes the spy with args', () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       attachSpy(obj, 'method', spy);
       obj.method('g', { h: 'i' }, 9);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -47,7 +49,7 @@ describe('attachSpy', () => {
     });
 
     it('invokes the spy with callOriginal', () => {
-      const spy = jest.fn();
+      const spy = vi.fn();
       attachSpy(obj, 'method', spy);
       obj.method();
       expect(spy).toHaveBeenCalledTimes(1);
@@ -63,7 +65,7 @@ describe('attachSpy', () => {
     });
 
     it('calls the original method when the spy does not', () => {
-      attachSpy(obj, 'method', () => {});
+      attachSpy(obj, 'method', () => { });
       obj.method();
       expect(originalMethod).toHaveBeenCalledTimes(1);
     });
@@ -77,7 +79,7 @@ describe('attachSpy', () => {
     });
 
     it('returns the original methods return value to the caller of the monkeypatched method', () => {
-      attachSpy(obj, 'method', jest.fn());
+      attachSpy(obj, 'method', vi.fn());
       expect(obj.method()).toEqual('some return value');
     });
   });
